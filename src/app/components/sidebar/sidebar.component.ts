@@ -30,7 +30,6 @@ export class SidebarComponent {
   logout(): void {
     localStorage.clear()
     sessionStorage.clear()
-
     this.router.navigate(['/'])
   }
 }

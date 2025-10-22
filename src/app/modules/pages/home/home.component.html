@@ -50,6 +50,8 @@
           <input
             type="text"
             placeholder="Buscar veículos..."
+            [value]="searchTerm"
+            (input)="onSearchChange($event)"
             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fcbb00] focus:border-transparent text-sm sm:text-base"
           />
           <svg
@@ -94,7 +96,7 @@
             <span class="text-base sm:text-lg text-gray-600">Carregando veículos...</span>
           </div>
         </div>
-      } @else if (!isLoading && vehicles.length === 0) {
+      } @else if (!isLoading && filteredVehicles.length === 0) {
         <div class="text-center py-8 sm:py-12">
           <svg
             class="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400"
@@ -110,15 +112,19 @@
             />
           </svg>
           <h3 class="mt-2 text-sm sm:text-base font-medium text-gray-900">
-            Nenhum veículo encontrado
+            {{ searchTerm ? 'Nenhum veículo encontrado' : 'Nenhum veículo cadastrado' }}
           </h3>
           <p class="mt-1 text-xs sm:text-sm text-gray-500">
-            Não há veículos cadastrados no momento.
+            {{
+              searchTerm
+                ? 'Tente buscar por outro termo.'
+                : 'Não há veículos cadastrados no momento.'
+            }}
           </p>
         </div>
       } @else {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          @for (vehicle of vehicles; track vehicle.id) {
+          @for (vehicle of filteredVehicles; track vehicle.id) {
             <div
               class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
             >

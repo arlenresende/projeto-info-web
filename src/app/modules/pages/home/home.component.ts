@@ -27,10 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private vehicleUpdateSubscription?: Subscription
 
   vehicles: Vehicle[] = []
+  filteredVehicles: Vehicle[] = []
   currentPage = 1
   totalPages = 1
   isLoading = false
   isSidebarOpen = false
+  searchTerm = ''
 
   ngOnInit(): void {
     this.loadVehicles(1)
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.vehicleService.getVehicles(page).subscribe({
       next: (response: VehiclesResponse) => {
         this.vehicles = response.vehicles
+        this.filterVehicles()
         this.currentPage = response.pagination.page
         this.totalPages = response.pagination.totalPages
         this.isLoading = false
@@ -123,5 +126,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen
+  }
+
+  filterVehicles(): void {
+    if (!this.searchTerm.trim()) {
+      this.filteredVehicles = [...this.vehicles]
+    } else {
+      const term = this.searchTerm.toLowerCase().trim()
+      this.filteredVehicles = this.vehicles.filter(
+        (vehicle) =>
+          vehicle.modelo.toLowerCase().includes(term) ||
+          vehicle.marca.toLowerCase().includes(term) ||
+          vehicle.placa.toLowerCase().includes(term),
+      )
+    }
+  }
+
+  onSearchChange(event: Event): void {
+    const target = event.target as HTMLInputElement
+    this.searchTerm = target.value
+    this.filterVehicles()
   }
 }
