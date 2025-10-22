@@ -1,16 +1,21 @@
 @import 'tailwindcss';
 @import 'ngx-toastr/toastr';
 
-/* CDK Dialog Overlay Styles */
+/* CDK Modal Overlay Styles */
 .cdk-overlay-container {
   z-index: 1000;
 }
 
 .cdk-overlay-backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .vehicle-detail-modal {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.add-vehicle-modal {
   background: transparent !important;
   box-shadow: none !important;
 }

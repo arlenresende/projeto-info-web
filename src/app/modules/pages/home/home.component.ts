@@ -4,6 +4,7 @@ import { Dialog } from '@angular/cdk/dialog'
 import { SidebarComponent } from '../../../components/sidebar/sidebar.component'
 import { CardComponent } from '../../../components/card/card.component'
 import { VehicleDetailModalComponent } from '../../../components/vehicle-detail-modal/vehicle-detail-modal.component'
+import { AddVehicleModalComponent } from '../../../components/add-vehicle-modal/add-vehicle-modal.component'
 import { VehicleService } from '../../../core/services/vehicle/vehicle.service'
 import { LoadingService } from '../../../core/services/loading/loading.service'
 import { ToastrService } from 'ngx-toastr'
@@ -74,8 +75,38 @@ export class HomeComponent implements OnInit {
       data: vehicle,
       width: '800px',
       maxWidth: '90vw',
-      maxHeight: '90vh',
       panelClass: 'vehicle-detail-modal',
+    })
+  }
+
+  openAddVehicleModal(): void {
+    const dialogRef = this.dialog.open(AddVehicleModalComponent, {
+      width: '1000px',
+      maxWidth: '95vw',
+      height: '800px',
+      maxHeight: '95vh',
+      panelClass: 'add-vehicle-modal',
+    })
+
+    dialogRef.closed.subscribe(() => {
+      // Reload current page of vehicles
+      this.loadVehicles(this.currentPage)
+    })
+  }
+
+  openEditVehicleModal(vehicle: Vehicle): void {
+    const dialogRef = this.dialog.open(AddVehicleModalComponent, {
+      width: '1000px',
+      maxWidth: '95vw',
+      height: '800px',
+      maxHeight: '95vh',
+      panelClass: 'add-vehicle-modal',
+      data: { vehicle },
+    })
+
+    dialogRef.closed.subscribe(() => {
+      // Reload current page of vehicles
+      this.loadVehicles(this.currentPage)
     })
   }
 }

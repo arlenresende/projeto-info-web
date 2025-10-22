@@ -10,7 +10,7 @@
     </header>
 
     <main class="p-6">
-      <div class="mb-6">
+      <div class="mb-6 flex justify-between items-center">
         <div class="relative max-w-md">
           <input
             type="text"
@@ -31,6 +31,21 @@
             ></path>
           </svg>
         </div>
+
+        <button
+          (click)="openAddVehicleModal()"
+          class="bg-[#fcbb00] hover:bg-[#e6a800] text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+          Adicionar Veículo
+        </button>
       </div>
 
       @if (isLoading) {
@@ -131,6 +146,7 @@
                     Ver Detalhes
                   </button>
                   <button
+                    (click)="openEditVehicleModal(vehicle)"
                     class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Editar
