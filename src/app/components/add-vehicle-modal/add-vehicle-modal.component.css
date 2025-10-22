@@ -171,7 +171,6 @@ button:active {
   }
 }
 
-/* Melhorar visibilidade do modal */
 .cdk-overlay-pane {
   max-height: 95vh !important;
   max-width: 95vw !important;

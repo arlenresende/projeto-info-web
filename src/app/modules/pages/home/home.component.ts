@@ -17,7 +17,6 @@ import { Vehicle, VehiclesResponse } from '../../../core/DTO/vehicle.dto'
   standalone: true,
   imports: [CommonModule, SidebarComponent, CardComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private vehicleService = inject(VehicleService)
@@ -31,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentPage = 1
   totalPages = 1
   isLoading = false
+  isSidebarOpen = false
 
   ngOnInit(): void {
     this.loadVehicles(1)
@@ -102,7 +102,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     dialogRef.closed.subscribe(() => {
-      // Reload current page of vehicles
       this.loadVehicles(this.currentPage)
     })
   }
@@ -118,8 +117,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     dialogRef.closed.subscribe(() => {
-      // Reload current page of vehicles
       this.loadVehicles(this.currentPage)
     })
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen
   }
 }

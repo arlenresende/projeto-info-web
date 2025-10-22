@@ -45,6 +45,19 @@
   background: #a8a8a8;
 }
 
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+  .max-w-2xl {
+    max-width: 90vw;
+    margin: 2rem;
+  }
+
+  .p-6 {
+    padding: 1.5rem;
+  }
+}
+
+/* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
   .grid-cols-1.md\:grid-cols-2 {
     grid-template-columns: 1fr;
@@ -52,5 +65,87 @@
 
   .max-w-2xl {
     max-width: 95vw;
+    margin: 1rem;
+    max-height: 90vh;
+  }
+
+  .p-6 {
+    padding: 1rem;
+  }
+
+  .gap-6 {
+    gap: 1rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+
+  .text-lg {
+    font-size: 1.125rem;
+  }
+
+  .h-64 {
+    height: 12rem;
+  }
+
+  .px-6.py-2 {
+    padding: 0.5rem 1rem;
+  }
+
+  .gap-3 {
+    gap: 0.75rem;
+  }
+
+  /* Botões em coluna em telas muito pequenas */
+  .flex.justify-end.gap-3 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+  .max-w-2xl {
+    max-width: 98vw;
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .p-6 {
+    padding: 0.75rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+
+  .text-lg {
+    font-size: 1rem;
+  }
+
+  .h-64 {
+    height: 10rem;
+  }
+
+  .px-6.py-2 {
+    padding: 0.75rem;
+  }
+
+  .leading-relaxed {
+    line-height: 1.5;
+  }
+
+  /* Ajuste da imagem para telas pequenas */
+  .w-full.h-64.object-cover {
+    height: 8rem;
   }
 }
