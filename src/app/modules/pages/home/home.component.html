@@ -8,13 +8,7 @@
     (click)="toggleSidebar()"
   ></div>
 
-  <div
-    [class.translate-x-0]="isSidebarOpen"
-    [class.-translate-x-full]="!isSidebarOpen"
-    class="md:translate-x-0"
-  >
-    <app-sidebar></app-sidebar>
-  </div>
+  <app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
 
   <div class="flex-1 ml-0 md:ml-64 transition-all duration-300">
     <header class="bg-white shadow-sm border-b">

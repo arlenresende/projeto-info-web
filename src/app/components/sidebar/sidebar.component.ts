@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { Component, inject, Input } from '@angular/core'
 import { Dialog } from '@angular/cdk/dialog'
 import { AddVehicleModalComponent } from '../add-vehicle-modal/add-vehicle-modal.component'
 import { VehicleUpdateService } from '../../core/services/vehicle-update/vehicle-update.service'
@@ -10,6 +10,7 @@ import { VehicleUpdateService } from '../../core/services/vehicle-update/vehicle
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+  @Input() isOpen: boolean = false
   private dialog = inject(Dialog)
   private vehicleUpdateService = inject(VehicleUpdateService)
 

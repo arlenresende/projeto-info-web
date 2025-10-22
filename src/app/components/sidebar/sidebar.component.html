@@ -1,5 +1,8 @@
 <aside
-  class="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out"
+  class="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40 transform transition-transform duration-300 ease-in-out"
+  [class.translate-x-0]="isOpen"
+  [class.-translate-x-full]="!isOpen"
+  [class.md:translate-x-0]="true"
 >
   <div class="p-4 sm:p-6 border-b border-gray-200">
     <h1 class="text-xl sm:text-2xl font-bold text-[#fcbb00]">AutoGestão</h1>
