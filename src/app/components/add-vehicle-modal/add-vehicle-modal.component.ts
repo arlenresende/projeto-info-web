@@ -1,10 +1,11 @@
-import { Component, inject, Inject } from '@angular/core'
+import { Component, inject, OnInit, Inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog'
 import { VehicleService } from '../../core/services/vehicle/vehicle.service'
 import { LoadingService } from '../../core/services/loading/loading.service'
 import { ToastrService } from 'ngx-toastr'
+import { VehicleUpdateService } from '../../core/services/vehicle-update/vehicle-update.service'
 import { Vehicle } from '../../core/DTO/vehicle.dto'
 
 @Component({
@@ -20,6 +21,7 @@ export class AddVehicleModalComponent {
   private loadingService = inject(LoadingService)
   private toastr = inject(ToastrService)
   public dialogRef = inject(DialogRef<any>)
+  private vehicleUpdateService = inject(VehicleUpdateService)
 
   vehicleForm: FormGroup
   isEditMode: boolean = false
@@ -27,7 +29,7 @@ export class AddVehicleModalComponent {
 
   constructor(@Inject(DIALOG_DATA) public data: { vehicle?: Vehicle } = {}) {
     this.vehicleForm = this.fb.group({
-      placa: ['', [Validators.required, Validators.pattern(/^[A-Z]{3}-?[0-9]{4}$/)]],
+      placa: ['', [Validators.required]],
       chassi: ['', [Validators.minLength(17), Validators.maxLength(17)]],
       renavam: ['', [Validators.pattern(/^[0-9]{11}$/)]],
       modelo: ['', [Validators.required, Validators.minLength(2)]],
@@ -70,6 +72,7 @@ export class AddVehicleModalComponent {
           next: (updatedVehicle) => {
             this.loadingService.hide()
             this.toastr.success('Veículo atualizado com sucesso!')
+            this.vehicleUpdateService.notifyVehicleUpdated()
             this.dialogRef.close()
           },
           error: (error) => {
@@ -83,6 +86,7 @@ export class AddVehicleModalComponent {
           next: (newVehicle) => {
             this.loadingService.hide()
             this.toastr.success('Veículo adicionado com sucesso!')
+            this.vehicleUpdateService.notifyVehicleUpdated()
             this.dialogRef.close()
           },
           error: (error) => {

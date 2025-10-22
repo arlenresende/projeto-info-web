@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, inject, OnInit, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Dialog } from '@angular/cdk/dialog'
+import { Subscription } from 'rxjs'
 import { SidebarComponent } from '../../../components/sidebar/sidebar.component'
 import { CardComponent } from '../../../components/card/card.component'
 import { VehicleDetailModalComponent } from '../../../components/vehicle-detail-modal/vehicle-detail-modal.component'
@@ -8,6 +9,7 @@ import { AddVehicleModalComponent } from '../../../components/add-vehicle-modal/
 import { VehicleService } from '../../../core/services/vehicle/vehicle.service'
 import { LoadingService } from '../../../core/services/loading/loading.service'
 import { ToastrService } from 'ngx-toastr'
+import { VehicleUpdateService } from '../../../core/services/vehicle-update/vehicle-update.service'
 import { Vehicle, VehiclesResponse } from '../../../core/DTO/vehicle.dto'
 
 @Component({
@@ -17,11 +19,13 @@ import { Vehicle, VehiclesResponse } from '../../../core/DTO/vehicle.dto'
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private vehicleService = inject(VehicleService)
   private loadingService = inject(LoadingService)
   private toastr = inject(ToastrService)
   private dialog = inject(Dialog)
+  private vehicleUpdateService = inject(VehicleUpdateService)
+  private vehicleUpdateSubscription?: Subscription
 
   vehicles: Vehicle[] = []
   currentPage = 1
@@ -29,7 +33,16 @@ export class HomeComponent implements OnInit {
   isLoading = false
 
   ngOnInit(): void {
-    this.loadVehicles()
+    this.loadVehicles(1)
+
+    // Escuta notificações de atualização de veículos
+    this.vehicleUpdateSubscription = this.vehicleUpdateService.vehicleUpdated$.subscribe(() => {
+      this.loadVehicles(this.currentPage)
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.vehicleUpdateSubscription?.unsubscribe()
   }
 
   loadVehicles(page: number = 1): void {
