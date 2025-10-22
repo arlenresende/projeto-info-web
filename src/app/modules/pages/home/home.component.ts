@@ -1,7 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Dialog } from '@angular/cdk/dialog'
 import { SidebarComponent } from '../../../components/sidebar/sidebar.component'
 import { CardComponent } from '../../../components/card/card.component'
+import { VehicleDetailModalComponent } from '../../../components/vehicle-detail-modal/vehicle-detail-modal.component'
 import { VehicleService } from '../../../core/services/vehicle/vehicle.service'
 import { LoadingService } from '../../../core/services/loading/loading.service'
 import { ToastrService } from 'ngx-toastr'
@@ -18,6 +20,7 @@ export class HomeComponent implements OnInit {
   private vehicleService = inject(VehicleService)
   private loadingService = inject(LoadingService)
   private toastr = inject(ToastrService)
+  private dialog = inject(Dialog)
 
   vehicles: Vehicle[] = []
   currentPage = 1
@@ -64,5 +67,15 @@ export class HomeComponent implements OnInit {
       return description
     }
     return description.substring(0, maxLength) + '...'
+  }
+
+  openVehicleDetails(vehicle: Vehicle): void {
+    this.dialog.open(VehicleDetailModalComponent, {
+      data: vehicle,
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+      panelClass: 'vehicle-detail-modal',
+    })
   }
 }
