@@ -304,16 +304,4 @@ Os arquivos de build serão gerados no diretório `dist/`.
 - Escreva testes para novas funcionalidades
 - Documente mudanças significativas
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📞 Contato
-
-Seu Nome - [seu.email@exemplo.com](mailto:seu.email@exemplo.com)
-
-Link do Projeto: [https://github.com/seuusuario/projeto-web](https://github.com/seuusuario/projeto-web)
-
----
-
 ⭐ **Desenvolvido com Angular 19 e TailwindCSS** ⭐
