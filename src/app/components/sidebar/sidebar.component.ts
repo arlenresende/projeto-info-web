@@ -1,5 +1,6 @@
 import { Component, inject, Input } from '@angular/core'
 import { Dialog } from '@angular/cdk/dialog'
+import { Router } from '@angular/router'
 import { AddVehicleModalComponent } from '../add-vehicle-modal/add-vehicle-modal.component'
 import { VehicleUpdateService } from '../../core/services/vehicle-update/vehicle-update.service'
 
@@ -12,6 +13,7 @@ import { VehicleUpdateService } from '../../core/services/vehicle-update/vehicle
 export class SidebarComponent {
   @Input() isOpen: boolean = false
   private dialog = inject(Dialog)
+  private router = inject(Router)
   private vehicleUpdateService = inject(VehicleUpdateService)
 
   openAddVehicleModal(): void {
@@ -23,5 +25,12 @@ export class SidebarComponent {
       panelClass: 'add-vehicle-modal',
       data: {},
     })
+  }
+
+  logout(): void {
+    localStorage.clear()
+    sessionStorage.clear()
+
+    this.router.navigate(['/'])
   }
 }
